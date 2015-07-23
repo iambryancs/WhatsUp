@@ -37,10 +37,10 @@ app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile) 
 		        title: "My Location"
 			});
 
-        google.maps.event.addListener(marker, 'click', function() {
-          console.log("message");
-          infowindow.open(map, marker);
-        });
+	        google.maps.event.addListener(marker, 'mousedown', function() {
+	          console.log("message");
+	          infowindow.open($scope.map, marker);
+	        });
 			$ionicLoading.hide();
 		}, function (error) {
 			alert('Unable to get location: ' + error.message);
