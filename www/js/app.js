@@ -1,7 +1,25 @@
-angular.module('todo', ['ionic'])
+angular.module('whatsup', [
+  'ionic',
+  // 'ngCordova',
+  // 'ionic.service.core',
+  // 'ionic.service.push',
+  // 'ionic.service.deploy',
+  'whatsup.controllers',
+  'whatsup.directives'
+])
+
+
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
+  });
+})
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center')
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -22,7 +40,7 @@ angular.module('todo', ['ionic'])
       views: {
         'tab-map': {
           templateUrl: 'templates/tab-map.html',
-          //controller: 'HomeCtrl'
+          controller: 'MapCtrl'
         }
       }
     })
