@@ -31,14 +31,14 @@ app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile) 
 		navigator.geolocation.getCurrentPosition(function (pos) {
 			console.log('Got pos', pos);
 			$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+
 			var marker = new google.maps.Marker({
 		        position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
 		        map: $scope.map,
 		        title: "My Location"
 			});
 
-	        google.maps.event.addListener(marker, 'mousedown', function() {
-	          console.log("message");
+	        google.maps.event.addListener(marker, 'mousedown', function() {	          
 	          infowindow.open($scope.map, marker);
 	        });
 			$ionicLoading.hide();
