@@ -1,13 +1,30 @@
 var app = angular.module('whatsup.controllers', []);
 
-app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile) {
- 	// Nothing to see here.
+app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile, uiGmapGoogleMapApi) {
+
  	$scope.title = "WhatsUp";
 
-  	$scope.mapCreated = function(map) {  		
+ 	if (localStorage.getItem("eventss") !== null) {
+ 	    eventss = localStorage.getItem("eventss");
+ 	    eventss = JSON.parse(eventss);          
+ 	}else{
+ 	    eventss = {"events": []};
+ 	}       
+
+ 	var mapOptions = {
+ 	    zoom: 17
+ 	};
+
+ 	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 17 };
+
+ 	uiGmapGoogleMapApi.then(function(maps) {
+ 		console.log(maps);
+    });
+
+  	/*$scope.mapCreated = function(map) {  		
     	$scope.map = map;
-    	$scope.centerOnMe();
-  	};
+    	// $scope.centerOnMe();
+  	};*/
 
 	$scope.centerOnMe = function () {
 		console.log("Centering");
@@ -29,7 +46,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile) 
         });
 
 		navigator.geolocation.getCurrentPosition(function (pos) {
-			console.log('Got pos', pos);
+			// console.log('Got pos', pos);
 			$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 
 			var marker = new google.maps.Marker({

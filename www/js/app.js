@@ -1,5 +1,6 @@
 angular.module('whatsup', [
   'ionic',
+  'uiGmapgoogle-maps',
   // 'ngCordova',
   // 'ionic.service.core',
   // 'ionic.service.push',
@@ -20,6 +21,14 @@ angular.module('whatsup', [
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
     $ionicConfigProvider.navBar.alignTitle('center')
+})
+
+.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        // key: 'your api key',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
