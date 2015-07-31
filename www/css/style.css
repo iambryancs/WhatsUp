@@ -13,4 +13,11 @@ map {
   height: 75%;
 }
 
+.marker-labels {
+	padding: 5px;
+	border-radius: 3px;
+	border: solid gray 1px;
+	opacity: .7;
+	background: #fff;
+}
 .angular-google-map-container { height: 400px; }

@@ -17,7 +17,10 @@
             <!-- <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a> -->
         </div>
         <!-- <map on-create="mapCreated(map)"></map> -->
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" click="test()" idkey="marker.id">
+            </ui-gmap-marker> 
+        </ui-gmap-google-map>
 
     </ion-content>
 </ion-view>

@@ -49,7 +49,8 @@ angular.module('whatsup', [
       views: {
         'tab-map': {
           templateUrl: 'templates/tab-map.html',
-          controller: 'MapCtrl'
+          // controller: 'MapCtrl'
+          controller: 'TestCtrl'
         }
       }
     })
