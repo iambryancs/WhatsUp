@@ -1,49 +1,125 @@
-var app = angular.module('whatsup.controllers', []);
+var app = angular.module('whatsup.controllers', ['ngMap']);
 
-app.controller('TestCtrl', function($scope, $rootScope, $ionicLoading, $compile, uiGmapGoogleMapApi) {
+app.controller('TestCtrl', function($scope, $rootScope){
+    var locked = false;
+    $scope.positions = [];
+    $scope.addMarker = function(event) {
+        if(!locked){
+            var ll = event.latLng;
+            $scope.positions.push({lat:ll.lat(), lng: ll.lng()});
+            locked = true;
+        }else{
+            alert("locked!");
+        }
+    };
+
+    $scope.saveEvent = function(e){
+        console.info(this.this.position);
+        //alert(e);
+        locked = false;
+    };
+
+    $scope.remove_marker = function(){                
+        
+        for (var key in this.map.markers) {            
+            var index = key - 1;
+            if(this.map.markers[key].position == this.this.position){                
+                if (index > -1) {
+                    console.log(index);
+                    this.map.markers[index].setMap(null);
+                    $scope.positions.splice(index, 1);
+                };
+            }
+        }
+
+        locked = false;
+    };
+
+
+
+});
+
+/*app.controller('NewCtrl', function($scope, uiGmapGoogleMapApi) {
     $scope.myLocation = {
         lng : '',
         lat: ''
     }
-         
+
+    var createNewMarker = function(i, lat, lng, idKey) {
+        if (idKey == null) {
+            idKey = "id";
+        }
+        var ret = {
+            latitude: lat,
+            longitude: lng,
+            title: i,
+            icon: "img/pin_green.png",
+            options: { //issue here
+                draggable: true
+            }
+        };
+        ret[idKey] = i;
+        console.log(ret);
+        return ret;
+    };    
+
+    $scope.randomMarkers = [];
     $scope.drawMap = function(position) {
- 
+
         //$scope.$apply is needed to trigger the digest cycle when the geolocation arrives and to update all the watchers
         $scope.$apply(function() {
             $scope.myLocation.lng = position.coords.longitude;
             $scope.myLocation.lat = position.coords.latitude;
- 
+    
             $scope.map = {
                 center: {
                     latitude: $scope.myLocation.lat,
                     longitude: $scope.myLocation.lng
                 },
-                zoom: 14            
+                zoom: 14,
+                events: {
+                    click: function(map, event, MouseEvent){   
+                        var lat = MouseEvent[0].latLng.lat();
+                        var lng = MouseEvent[0].latLng.lng();                        
+                        var markers = [];
+                        markers.push(createNewMarker("new", lat, lng));
+
+                        //create new marker
+                        $scope.$apply(function(){
+                            $scope.randomMarkers = markers;    
+                        });
+                        
+                        // console.log(MouseEvent[0].latLng);
+                    }
+                },
+                bounds: {}
             };
- 
+    
             $scope.marker = {
                 id: 0,
+                title: 'My Location',
                 coords: {
                     latitude: $scope.myLocation.lat,
                     longitude: $scope.myLocation.lng
+                },
+                events: {
+                    click: function(){
+                        console.log("click on marker");
+                    }
                 }
             }; 
              
             $scope.marker.options = {
                 draggable: false,
+                icon: "img/pin_blue.png",
                 labelContent: "lat: " + $scope.marker.coords.latitude + '<br/> ' + 'lon: ' + $scope.marker.coords.longitude,
                 labelAnchor: "70 100",
                 labelClass: "marker-labels"
             };  
-        });
+        }); //end $scope.drawMap
     };
-     
+
     navigator.geolocation.getCurrentPosition($scope.drawMap);
-
-    $scope.test = function(){
-        alert("hola");
-    };
-
 });
 
 
@@ -65,14 +141,10 @@ app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile, 
 
         $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 17 };
 
-        uiGmapGoogleMapApi.then(function(maps) {
-                console.log(maps);
-        });
-
-        /*$scope.mapCreated = function(map) {       
+        $scope.mapCreated = function(map) {       
                 $scope.map = map;
                 // $scope.centerOnMe();
-        };*/
+        };
 
         $scope.centerOnMe = function () {
                 console.log("Centering");
@@ -117,4 +189,4 @@ app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile, 
         };
 
 
-});
+});*/
