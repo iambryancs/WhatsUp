@@ -5,22 +5,15 @@
     <ion-nav-buttons side="right">
             <button menu-toggle="right" class="button button-icon icon ion-ios-search"></button>
     </ion-nav-buttons>
-    <ion-content style="background: #e8ebf1;" class="padding">
-        <div class="list card">
+    <ion-content style="background: #e8ebf1;" class="padding" scroll="false">
+                
+        <!--ng-map map-initialized="haha(this)" on-click="doThis(this)">
+            
+        </ng-map-->
 
-            <a class="item item-icon-left item-icon-right" href="#">
-                <i class="icon ion-chatbubble-working"></i>
-                Date
-                <i class="icon ion-ios-arrow-right"></i>
-            </a>            
-            <!-- <a class="button icon-right ion-ios-arrow-right button-calm">Learn More</a> -->
-            <!-- <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a> -->
-        </div>
-        <!-- <map on-create="mapCreated(map)"></map> -->
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" click="test()" idkey="marker.id">
-            </ui-gmap-marker> 
-        </ui-gmap-google-map>
+        <map map-initialized="haha(this)" on-click="doThis(this)">
+        </map>
 
+        
     </ion-content>
 </ion-view>

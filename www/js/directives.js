@@ -1,6 +1,6 @@
 var app = angular.module('whatsup.directives', []);
 
-app.directive('map', function($compile) {
+app.directive('mapsss', function($compile) {
     return {
         restrict: 'E',
         scope: {
@@ -28,7 +28,7 @@ app.directive('map', function($compile) {
             }
 
 
-            function initialize(){
+            function initialize1(){
 
                 if (localStorage.getItem("eventss") !== null) {
                     eventss = localStorage.getItem("eventss");
@@ -101,7 +101,7 @@ app.directive('map', function($compile) {
 
                     var compiled = $compile(contentString)($scope);
 
-                    bindInfoWindow(marker, map, infowindow, compiled[0]);                   
+                    bindInfoWindow(marker, map, infowindow, compiled[0]);
 
                 });
 
@@ -248,9 +248,11 @@ app.directive('map', function($compile) {
             }
 
             if (document.readyState === "complete") {
-                initialize();
+                //initialize();
+                console.log("im here");
             } else {
-                google.maps.event.addDomListener(window, 'load', initialize);
+                //google.maps.event.addDomListener(window, 'load', initialize);
+                console.log("im here 2");
             }
         }
     }

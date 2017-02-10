@@ -1,52 +1,30 @@
 var app = angular.module('whatsup.controllers', []);
 
-app.controller('TestCtrl', function($scope, $rootScope, $ionicLoading, $compile, uiGmapGoogleMapApi) {
-    $scope.myLocation = {
-        lng : '',
-        lat: ''
-    }
-         
-    $scope.drawMap = function(position) {
- 
-        //$scope.$apply is needed to trigger the digest cycle when the geolocation arrives and to update all the watchers
-        $scope.$apply(function() {
-            $scope.myLocation.lng = position.coords.longitude;
-            $scope.myLocation.lat = position.coords.latitude;
- 
-            $scope.map = {
-                center: {
-                    latitude: $scope.myLocation.lat,
-                    longitude: $scope.myLocation.lng
-                },
-                zoom: 14            
+
+app.controller('TestCtrl', function($scope){
+    $scope.haha = function(ng_map){
+        var map = ng_map.map;
+        //var infoWindow = new google.maps.InfoWindow({map: map});
+        var marker = new google.maps.Marker({map: map});
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
             };
- 
-            $scope.marker = {
-                id: 0,
-                coords: {
-                    latitude: $scope.myLocation.lat,
-                    longitude: $scope.myLocation.lng
-                }
-            }; 
-             
-            $scope.marker.options = {
-                draggable: false,
-                labelContent: "lat: " + $scope.marker.coords.latitude + '<br/> ' + 'lon: ' + $scope.marker.coords.longitude,
-                labelAnchor: "70 100",
-                labelClass: "marker-labels"
-            };  
-        });
-    };
-     
-    navigator.geolocation.getCurrentPosition($scope.drawMap);
 
-    $scope.test = function(){
-        alert("hola");
+            //infoWindow.setPosition(pos);
+            //infoWindow.setContent('Location found.');
+            marker.setPosition(pos);
+            map.setCenter(pos);
+            console.log(pos);
+          });
     };
 
+    $scope.doThis = function(t){
+        console.log(t);
+    };
+    
 });
-
-
 
 app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile, uiGmapGoogleMapApi) {
 
@@ -69,10 +47,10 @@ app.controller('MapCtrl', function($scope, $rootScope, $ionicLoading, $compile, 
                 console.log(maps);
         });
 
-        /*$scope.mapCreated = function(map) {       
+        $scope.mapCreated = function(map) {       
                 $scope.map = map;
                 // $scope.centerOnMe();
-        };*/
+        };
 
         $scope.centerOnMe = function () {
                 console.log("Centering");
